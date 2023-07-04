@@ -1,0 +1,70 @@
+import React, { useEffect, useState } from 'react';
+import DisabledCard from '../../DisabledProductCard/DisabledCard';
+import { Col, Row, Spinner } from 'react-bootstrap';
+import { getUserArchivedSells } from '../../../services/userData';
+
+import './Sells.css';
+import '../../DisabledProductCard/DisabledCard.css'
+
+interface Product {
+  _id: string;
+  active: boolean;
+  name: string;
+  price: number;
+  description: string;
+}
+
+interface History {
+  push: (path: string) => void;
+}
+
+interface ArchivedSellsProps {
+  history: History;
+}
+
+interface Response {
+  sells: Product[];
+}
+
+const ArchivedSells: React.FC<ArchivedSellsProps> = ({ history }) => {
+  const [products, setProduct] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getUserArchivedSells()
+      .then((res: Response) => {
+        setProduct(res.sells);
+        setLoading(false)
+      })
+      .catch((err: Error) => console.log(err))
+  }, [])
+  
+
+  return (
+    <>
+      {!loading ?
+        (<>
+            <h1 className="heading">Archive</h1>
+            {products.length > 0 ? (
+                <Row>
+                    {products
+                        .filter(x => x.active === false)
+                        .map(x =>
+                            <Col xs={12} md={6} lg={4} key={x._id.toString()}>
+                                <DisabledCard params={x} history={history} />
+                            </Col>
+                        )
+                    }
+                </Row>
+            ) : (
+                    <p className="nothing-to-show">Nothing to show</p>
+                )
+            }
+        </>) :
+        <Spinner animation="border" />}
+    </>
+  )
+}
+
+export default ArchivedSells;
