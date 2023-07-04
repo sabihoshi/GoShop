@@ -3,7 +3,7 @@ import ProductCard from '../../ProductCard/ProductCard';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { getUserActiveSells } from '../../../services/userData';
 
-import '../Sells.css';
+import './Sells.css';
 
 interface Product {
     category: string;

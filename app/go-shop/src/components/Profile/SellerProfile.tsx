@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import ActiveSells, { ActiveSellsProps } from '../Sells/ActiveSells'
+import ActiveSells, { ActiveSellsProps } from './Sells/ActiveSells'
 import { Col, Row, Button, Form, Modal } from 'react-bootstrap';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdEmail, MdPhoneAndroid } from 'react-icons/md'
 import { FaSellsy } from 'react-icons/fa'
 import { RiMessage3Fill } from 'react-icons/ri';
-import { createChatRoom } from '../../../services/messagesData'
+import { createChatRoom } from '../../services/messagesData'
 
 interface SellerProfileProps {
   params: any; // replace 'any' with the actual type
