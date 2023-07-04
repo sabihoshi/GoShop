@@ -5,7 +5,10 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Categories from './pages/Categories';
 import Login from './pages/Login';
+import LogOut from './pages/LogOut';
 import Register from './pages/Register';
+import Error404 from './pages/Error404';
+
 
 import './App.css';
 //import axios from 'axios';
@@ -28,8 +31,11 @@ function App() {
        <Routes>
         <Route path="/" element={<Categories />}/>
         <Route path="/categories/:category" element={<Categories />} />
-        <Route path="auth/login" element={<Login />}/>
+        <Route path="auth/login" element = {<Login />}/>
+        <Route path="/auth/logout" element ={< LogOut />} />
         <Route path="auth/register" element={<Register />}/>
+        <Route element ={< Error404/>} />
+
        </Routes>
        <Footer />
        </>
