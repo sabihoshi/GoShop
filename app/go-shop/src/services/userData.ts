@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'http://localhost/GoShop/api';
 
 export async function registerUser(userData: any) {
     return (await fetch(`${baseUrl}/auth/register`, {
@@ -11,8 +11,13 @@ export async function registerUser(userData: any) {
     })).json();
 }
 
-export async function loginUser(userData: any) {
-    return (await fetch(`/auth/login`, {
+interface IUserCredentials {
+    email: string;
+    password: string;
+}
+
+export async function loginUser(userData: IUserCredentials) {
+    return (await fetch(`/auth/login.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
