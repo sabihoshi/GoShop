@@ -7,12 +7,17 @@ import './Sells.css';
 import '../../DisabledProductCard/DisabledCard.css'
 
 interface Product {
-  _id: string;
+  _id: number;
   active: boolean;
-  name: string;
+  category: string;
+  image: string;
+  title: string;
   price: number;
+  addedAt: string;
+  city: string;
   description: string;
 }
+
 
 interface History {
   push: (path: string) => void;
