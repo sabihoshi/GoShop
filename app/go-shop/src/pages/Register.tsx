@@ -68,18 +68,25 @@ const Register: React.FC<RegisterProps> = ({ history }) => {
             </Alert>
           )}
           <Row>
-            <Form.Group controlId="forName" className="col-lg-8">
+            <Form.Group controlId="forName" className="col-lg-5">
               <Form.Label>Name *</Form.Label>
               <Form.Control type="text" name="name" placeholder="Ivan Ivanov" onChange={() => handleChanges} required />
               <Form.Text muted>
                 The name can be your real one or a username.
               </Form.Text>
             </Form.Group>
+            <Form.Group controlId="forUsername" className="col-lg-4">
+              <Form.Label>Username *</Form.Label>
+              <Form.Control type="text" name="username" placeholder="Username" onChange={() => handleChanges} required />
+              <Form.Text muted>
+                Must be unique, 8 characters or more
+              </Form.Text>
+            </Form.Group>
             {/* <Form.Group controlId="forLastName" className="col-lg-4">
               <Form.Label>Last Name</Form.Label>
               <Form.Control type="text" name="lastName" placeholder="Ivanov" onChange={handleChanges} />
             </Form.Group> */}
-            <Form.Group as={Col} controlId="formGridGender" className="col-lg-4">
+            <Form.Group as={Col} controlId="formGridGender" className="col-lg-3">
               <Form.Label>Gender</Form.Label>
               <Form.Control as="select" defaultValue="not specified" name="gender" onChange={() => handleChanges}>
                 <option>male</option>
