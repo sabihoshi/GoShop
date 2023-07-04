@@ -3,7 +3,7 @@ import ProductCard from '../../ProductCard/ProductCard';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { getUserActiveSells } from '../../../services/userData';
 
-import './Sells.css';
+import '../Sells.css';
 
 interface Product {
     category: string;
@@ -26,7 +26,7 @@ interface Params {
     city: string;
 }
 
-interface ActiveSellsProps {
+export interface ActiveSellsProps {
     params: Params;
     history: History; // import this from 'history' library
 }
