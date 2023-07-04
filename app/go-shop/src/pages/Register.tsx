@@ -7,6 +7,7 @@ import '../components/Register/Register.css';
 
 interface UserData {
   name: string | null;
+  username: string;
   lastName: string | null;
   gender: string | null;
   phoneNumber: string;
@@ -27,6 +28,7 @@ const Register: React.FC<RegisterProps> = ({ history }) => {
     name: null,
     lastName: null,
     gender: null,
+    username: '',
     phoneNumber: '',
     email: '',
     password: '',
