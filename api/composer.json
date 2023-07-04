@@ -1,0 +1,10 @@
+{
+  "name": "sabihoshi/goshop",
+  "description": "This is the back-end API for the GoShop Marketplace app. It provides all the necessary endpoints and services to support user authentication, product listing, ordering, and other marketplace features. It's built with PHP using Symfony's HttpFoundation for request and response handling, and RedBeanPHP for easy database interaction.",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "symfony/http-foundation": "^5.3",
+    "gabordemooij/redbean": "^5.6"
+  }
+}
