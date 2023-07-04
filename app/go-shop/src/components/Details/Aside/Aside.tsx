@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, OverlayTrigger, Tooltip, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RiMessage3Fill } from 'react-icons/ri';
 import { GrEdit } from 'react-icons/gr';
 import { MdArchive } from 'react-icons/md'
@@ -9,7 +9,6 @@ import { MdEmail, MdPhoneAndroid } from 'react-icons/md'
 import { FaSellsy } from 'react-icons/fa'
 import { archiveSell } from '../../../services/productData';
 import { createChatRoom } from '../../../services/messagesData'
-import { History } from 'history';
 import './Aside.css';
 
 interface AsideProps {
@@ -46,7 +45,8 @@ function Aside({ params, history }: AsideProps) {
     archiveSell(params._id)
       .then(res => {
         setShowArchive(false);
-        history.push(`/profile/${params.seller}`);
+        let navigate = useNavigate();
+        navigate(`/profile/${params.seller}`);
       })
       .catch(err => console.log(err))
   }
@@ -61,7 +61,8 @@ function Aside({ params, history }: AsideProps) {
     e.preventDefault();
     createChatRoom(params.sellerId, message)
       .then((res) => {
-        history.push(`/messages/${res.messageId}`);
+        let navigate = useNavigate();
+        navigate(`/messages/${res.messageId}`);
       })
       .catch(err => console.log(err))
   }
