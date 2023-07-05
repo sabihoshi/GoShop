@@ -11,12 +11,12 @@ import '../components/Profile/Profile.css';
 import { useParams } from 'react-router-dom';
 
 interface User {
+    id: number;
     avatar: string;
     name: string;
     email: string;
     phoneNumber: string;
     totalSells: number;
-    id: number;
     isMe: boolean;
 }
 
@@ -61,7 +61,7 @@ function Profile() {
         <>
             {user && user.isMe ? (
                 <>
-                <ProfileSection params={user!} />
+                <ProfileSection params={user} />
                 <div className="container">
                     <Row>
                         <Col lg={2} sm={12} id="aside">

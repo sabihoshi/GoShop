@@ -21,7 +21,6 @@ interface Params {
 
 export interface ActiveSellsProps {
     params: Params;
-    history?: History; // import this from 'history' library
 }
 
 interface ActiveSellsState {

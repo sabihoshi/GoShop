@@ -10,7 +10,7 @@ function Login() {
     const [alertShow, setAlertShow] = useState(false);
     const [error, setError] = useState(null);
     const [user, setUser] = useState({
-        email: "",
+        username: "",
         password: ""
     });
 
@@ -24,6 +24,7 @@ function Login() {
 
     const handleSubmitLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(`user: ${user}`);
         setLoading(true);
         loginUser(user)
             .then(res => {
@@ -51,9 +52,9 @@ function Login() {
                             </p>
                         </Alert>
                     }
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="Enter email" onChange={handleChanges} required />
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" name="username" placeholder="Enter username" onChange={handleChanges} required />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'http://localhost/GoShop/api';
 
 export async function createChatRoom(receiver: number, message: string) {
     return (await fetch(`${baseUrl}/messages/createChatRoom`, {

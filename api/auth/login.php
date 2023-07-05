@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../vendor/autoload.php';
 
 use RedBeanPHP\R as R;
@@ -22,6 +24,11 @@ if ($request->getMethod() === 'POST') {
     $user = R::findOne('user', ' username = ? ', [$username]);
 
     if ($user && password_verify($password, $user->password)) {
+        $_SESSION['user'] = [
+            'id' => $user->id,
+            'username' => $user->username,
+        ];
+
         $response->setContent(json_encode([
             'status' => 'success',
             'message' => 'Logged in successfully',
