@@ -5,7 +5,7 @@ import Moment from "react-moment";
 
 interface Params {
     category: string;
-    _id: number;
+    id: string;
     image: string;
     title: string;
     price: number;
@@ -20,11 +20,11 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ params }) => {
     return (
         <Card>
-            <Link to={`/categories/${params.category}/${params._id}/details`}>
+            <Link to={`/categories/${params.category}/${params.id}/details`}>
                 <Card.Img variant="top" src={params.image} />
                 <Card.Body>
                     <Card.Title>{params.title}</Card.Title>
-                    <Card.Text>{params.price.toFixed(2)}€</Card.Text>
+                    <Card.Text>{Number(params.price).toFixed(2)} PHP</Card.Text>
                 </Card.Body>
             </Link>
             <Card.Footer>

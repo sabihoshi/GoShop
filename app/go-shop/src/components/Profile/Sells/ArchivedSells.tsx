@@ -7,7 +7,7 @@ import './Sells.css';
 import '../../DisabledProductCard/DisabledCard.css'
 
 interface Product {
-  _id: number;
+  id: number;
   active: boolean;
   category: string;
   image: string;
@@ -56,7 +56,7 @@ const ArchivedSells: React.FC<ArchivedSellsProps> = ({ history }) => {
                     {products
                         .filter(x => x.active === false)
                         .map(x =>
-                            <Col xs={12} md={6} lg={4} key={x._id.toString()}>
+                            <Col xs={12} md={6} lg={4} key={x.id.toString()}>
                                 <DisabledCard params={x} history={history} />
                             </Col>
                         )

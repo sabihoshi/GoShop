@@ -4,7 +4,7 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { wishProduct } from '../../../services/productData'
 
 interface Params {
-    _id: number;
+    id: number;
     isWished: boolean;
     image: string;
     title: string;
@@ -30,13 +30,13 @@ const ProductInfo: FC<ProductInfoProps> = ({ params }) => {
 
     const onHearthClick = () => {
         if (wish === false) {
-            wishProduct(params._id)
+            wishProduct(params.id)
                 .then(res => {
                     setWish(true);
                 })
                 .catch(err => console.log(err))
         } else {
-            wishProduct(params._id)
+            wishProduct(params.id)
                 .then(res => {
                     setWish(false);
                 })

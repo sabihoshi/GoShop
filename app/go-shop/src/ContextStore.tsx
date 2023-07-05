@@ -4,7 +4,7 @@ interface UserData {
   name: string;
   age: number;
   avatar: string;
-  _id: number;
+  id: number;
   // Add any other properties you need for the userData object
 }
 
