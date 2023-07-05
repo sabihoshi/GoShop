@@ -12,24 +12,28 @@ import { createChatRoom } from '../../../services/messagesData'
 import './Aside.css';
 
 interface AsideProps {
-    params: {
+    params?: {
         _id: number;
         seller: string;
-        isSeller: boolean;
+        isSeller?: boolean;
         price?: number;
-        isAuth: boolean;
-        sellerId: number;
-        avatar: string;
+        isAuth?: boolean;
+        sellerId?: number;
+        avatar?: string;
         name: string;
         email: string;
         phoneNumber: string;
-        createdSells: number;
+        createdSells?: number;
         category: string;
-    };
-  history: History;
+    } | null;
 }
 
 function Aside({ params }: AsideProps) {
+
+  if (!params) {
+    return null;
+  }
+  
   const [showMsg, setShowMsg] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
   const [message, setMessage] = useState("");
@@ -59,7 +63,7 @@ function Aside({ params }: AsideProps) {
 
   const onMsgSend = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    createChatRoom(params.sellerId, message)
+    createChatRoom(Number(params.sellerId), message)
       .then((res) => {
         let navigate = useNavigate();
         navigate(`/messages/${res.messageId}`);

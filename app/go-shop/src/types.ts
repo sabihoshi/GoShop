@@ -9,3 +9,13 @@ export interface UserData {
     password: string;
     repeatPassword: string;
 }
+
+ export interface Product {
+    category: string;
+    _id: number;
+    image: string;
+    title: string;
+    price: number;
+    addedAt: Date;
+    city: string;
+}

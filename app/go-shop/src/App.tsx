@@ -4,11 +4,11 @@ import {Route, Routes} from 'react-router-dom'
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Categories from './pages/Categories';
+import Details from './pages/Details';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
 import Register from './pages/Register';
 import Error404 from './pages/Error404';
-
 
 import './App.css';
 
@@ -16,7 +16,6 @@ import './App.css';
 
 function App() {
     /** TODO:
-     * <Route path="/categories/:category/:id/details" component={Details} />
      * <Route path="/categories/:category/:id/edit" component={Edit} />
      * <Route path="/auth/logout" exact render={LogOut} />
      * <Route path='/add-product' exact component={CreateSell} />;
@@ -32,9 +31,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<Categories/>}/>
                 <Route path="/categories/:category" element={<Categories/>}/>
+                <Route path="/categories/:category/:id/details" element={<Details/>} />
                 <Route path="/auth/login" element={<Login/>}/>
-                <Route path="/auth/logout" element={<LogOut/>}/>
                 <Route path="/auth/register" element={<Register/>}/>
+                <Route path="/auth/logout" element={<LogOut/>}/>
                 <Route path="*" element={<Error404/>}/>
             </Routes>
             <Footer/>
