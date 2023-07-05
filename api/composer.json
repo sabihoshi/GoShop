@@ -4,6 +4,7 @@
   "type": "project",
   "license": "MIT",
   "require": {
+    "php": ">=8.2",
     "symfony/http-foundation": "*",
     "gabordemooij/redbean": "*",
     "ext-json": "*"
