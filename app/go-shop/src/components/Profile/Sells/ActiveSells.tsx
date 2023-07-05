@@ -4,6 +4,17 @@ import { Col, Row, Spinner } from 'react-bootstrap';
 import { getUserActiveSells } from '../../../services/userData';
 
 import './Sells.css';
+import { URLSearchParams } from 'url';
+
+interface User {
+    avatar: string;
+    name: string;
+    email: string;
+    phoneNumber: string;
+    totalSells: number;
+    _id: string;
+    isMe: boolean;
+}
 
 interface Product {
     category: string;
@@ -27,8 +38,7 @@ interface Params {
 }
 
 export interface ActiveSellsProps {
-    params: Params;
-    history: History; // import this from 'history' library
+    params: User;
 }
 
 interface ActiveSellsState {

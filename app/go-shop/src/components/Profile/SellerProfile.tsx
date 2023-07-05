@@ -10,10 +10,9 @@ import { useNavigate } from 'react-router-dom';
 
 interface SellerProfileProps {
   params: any; // replace 'any' with the actual type
-  history: any; // replace 'any' with the actual type
 }
 
-function SellerProfile({ params, history }: SellerProfileProps) {
+function SellerProfile({ params }: SellerProfileProps) {
     const [showMsg, setShowMdg] = useState(false);
     const [message, setMessage] = useState("");
     const handleClose = () => setShowMdg(false);
@@ -59,7 +58,7 @@ function SellerProfile({ params, history }: SellerProfileProps) {
             <div className="container">
                 <Row>
                     <Col lg={12}>
-                        <ActiveSells params={params} history={history} />
+                        <ActiveSells params={params} />
                     </Col>
                 </Row>
             </div>

@@ -18,20 +18,11 @@ interface Product {
   description: string;
 }
 
-
-interface History {
-  push: (path: string) => void;
-}
-
-interface ArchivedSellsProps {
-  history: History;
-}
-
 interface Response {
   sells: Product[];
 }
 
-const ArchivedSells: React.FC<ArchivedSellsProps> = ({ history }) => {
+const ArchivedSells: React.FC = () => {
   const [products, setProduct] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -57,7 +48,7 @@ const ArchivedSells: React.FC<ArchivedSellsProps> = ({ history }) => {
                         .filter(x => x.active === false)
                         .map(x =>
                             <Col xs={12} md={6} lg={4} key={x._id.toString()}>
-                                <DisabledCard params={x} history={history} />
+                                <DisabledCard params={x} />
                             </Col>
                         )
                     }

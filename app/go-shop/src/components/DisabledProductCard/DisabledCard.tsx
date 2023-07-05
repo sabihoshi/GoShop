@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Modal, Button } from 'react-bootstrap';
 import { RiDeviceRecoverFill } from 'react-icons/ri';
 import { activateSell } from '../../services/productData';
@@ -13,21 +14,19 @@ interface DisabledCardProps {
         addedAt: string;
         city: string;
     };
-    history: {
-        push: (path: string) => void;
-    };
 }
 
-function DisabledCard({ params, history }: DisabledCardProps) {
+function DisabledCard({ params }: DisabledCardProps) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const navigate  = useNavigate();
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         activateSell(params._id)
             .then(res => {
-                history.push(`/categories/${params.category}/${params._id}/details`)
+                navigate(`/categories/${params.category}/${params._id}/details`)
                 setShow(false);
             })
             .catch(err => console.log(err))

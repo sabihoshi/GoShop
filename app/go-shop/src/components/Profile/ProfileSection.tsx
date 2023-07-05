@@ -17,7 +17,7 @@ interface ProfileProps {
     }
 }
 
-const ProfileSection: FC<ProfileProps> = ({ params }) => {
+const ProfileSection: React.FC<ProfileProps> = ({ params }) => {
     return (
         <div id="profile-head">
             <div className="container">
