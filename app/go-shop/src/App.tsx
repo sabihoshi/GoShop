@@ -9,6 +9,7 @@ import Details from './pages/Details';
 import Login from './pages/Login';
 import LogOut from './pages/LogOut';
 import Register from './pages/Register';
+import CreateSell from './pages/CreateSell';
 import Profile from './pages/Profile';
 import Error404 from './pages/Error404';
 import Messages from './pages/Messages';
@@ -29,8 +30,9 @@ function App() {
                <Route path="/categories/:category/:id/details" element={<Details/>} />
                <Route path="/categories/:category/:id/edit" element={<Edit/>} />
                <Route path="/auth/login" element={<Login/>}/>
-               <Route path="/auth/logout" element={<LogOut/>}/>
                <Route path="/auth/register" element={<Register/>}/>
+               <Route path="/auth/logout" element={<LogOut/>}/>
+               <Route path='/add-product' element={<CreateSell/>} />;
                <Route path='/profile/:id' element={<Profile/>} />;
                <Route path='/profile/:id/edit' element={<EditProfile/>} />;
                <Route path="/messages/:id" element={<Messages/>}/>
