@@ -13,7 +13,7 @@ interface ProfileProps {
         email: string;
         phoneNumber: string;
         totalSells: number;
-        id: string;
+        id: number;
     }
 }
 

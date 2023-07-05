@@ -16,7 +16,7 @@ interface User {
     email: string;
     phoneNumber: string;
     totalSells: number;
-    id: string;
+    id: number;
     isMe: boolean;
 }
 

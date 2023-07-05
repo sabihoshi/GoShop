@@ -16,13 +16,7 @@ interface Product {
 }
 
 interface Params {
-    category: string;
-    id?: number;
-    image: string;
-    title: string;
-    price: number;
-    addedAt: Date;
-    city: string;
+    id: number;
 }
 
 export interface ActiveSellsProps {
