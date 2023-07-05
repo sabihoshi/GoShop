@@ -33,7 +33,25 @@ interface Product {
 
 function Details() {
     let {id: productId} = useParams();
-    let [product, setProduct] = useState<Product | null>(null);
+    let [product, setProduct] = useState<Product>({
+        id: 0,
+        title: "",
+        seller: "",
+        isSeller: false,
+        price: 0,
+        isAuth: false,
+        sellerId: 0,
+        avatar: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        createdSells: 0,
+        category: "",
+        isWished: false,
+        image: "",
+        description: "",
+        addedAt: ""
+    });
     let [loading, setLoading] = useState(true);
 
     useEffect(() => {

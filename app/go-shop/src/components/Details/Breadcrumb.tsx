@@ -8,13 +8,10 @@ interface Params {
 }
 
 interface BreadcrumbNavProps {
-  params: Params | null;
+  params: Params;
 }
 
 const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({ params }) => {
-  if (!params) {
-    return null;
-  }
   return (
     <Breadcrumb>
       <li className="breadcrumb-item">
