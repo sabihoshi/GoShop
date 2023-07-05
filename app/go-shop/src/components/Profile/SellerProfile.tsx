@@ -27,7 +27,7 @@ function SellerProfile({ params }: SellerProfileProps) {
 
     const onMsgSent = (e: FormEvent) => {
         e.preventDefault();
-        createChatRoom(params._id, message)
+        createChatRoom(params.id, message)
             .then((res: Response) => { 
                 navigate(`/messages`)
             })

@@ -12,8 +12,8 @@ import { createChatRoom } from '../../../services/messagesData'
 import './Aside.css';
 
 interface AsideProps {
-    params?: {
-        _id: number;
+    params: {
+        id: number;
         seller: string;
         isSeller?: boolean;
         price?: number;
@@ -46,7 +46,7 @@ function Aside({ params }: AsideProps) {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    archiveSell(params._id)
+    archiveSell(params.id)
       .then(res => {
         setShowArchive(false);
         let navigate = useNavigate();
@@ -80,7 +80,7 @@ return (
             <>
               <OverlayTrigger placement="top" overlay={<Tooltip>Edit the selling</Tooltip>}>
                 <span id="edit-icon">
-                  <Link to={`/categories/${params.category}/${params._id}/edit`}><GrEdit /></Link>
+                  <Link to={`/categories/${params.category}/${params.id}/edit`}><GrEdit /></Link>
                 </span>
               </OverlayTrigger>
               <OverlayTrigger placement="top" overlay={<Tooltip>Archive</Tooltip>}>
@@ -90,7 +90,7 @@ return (
               </OverlayTrigger>
             </>
           }
-          {params.price && <h1 id="price-heading">{(params.price).toFixed(2)}€</h1>}
+          {params.price && <h1 id="price-heading">{Number(params.price).toFixed(2)} PHP</h1>}
         </div>
         {params.isAuth ? (
           <>

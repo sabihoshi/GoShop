@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getUserConversations, sendMessage } from '../services/messagesData';
 import { Container, Row, Form, InputGroup, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import '../components/Messages/Aside.css';
 import '../components/Messages/Article.css';
@@ -26,16 +27,13 @@ interface Selected {
     myId: number;
 }
 
-interface MatchParams {
-    id: number;
+type MatchParams = {
+    id: string; // or id: number; based on your requirements.
 }
 
-interface Match {
-    params: MatchParams;
-}
-
-function Messages({ match }: { match: Match }) {
-    let chatId = match.params.id;
+function Messages() {
+    let { id } = useParams<MatchParams>();
+    let chatId = id;
     const [conversations, setConversations] = useState<Chat[]>([]);
     const [isSelected, setIsSelected] = useState(false);
     const [selected, setSelected] = useState<Selected>({
@@ -81,6 +79,7 @@ function Messages({ match }: { match: Match }) {
 
     const handleMsgSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let chatId = Number(id);
         sendMessage(chatId, message)
             .then((res) => {
                 setAlert("Message sent!");

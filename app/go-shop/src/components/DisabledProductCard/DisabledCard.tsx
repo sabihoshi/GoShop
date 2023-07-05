@@ -6,7 +6,7 @@ import { activateSell } from '../../services/productData';
 
 interface DisabledCardProps {
     params: {
-        _id: number;
+        id: number;
         category: string;
         image: string;
         title: string;
@@ -24,7 +24,7 @@ function DisabledCard({ params }: DisabledCardProps) {
     const navigate  = useNavigate();
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        activateSell(params._id)
+        activateSell(params.id)
             .then(res => {
                 navigate(`/categories/${params.category}/${params._id}/details`)
                 setShow(false);

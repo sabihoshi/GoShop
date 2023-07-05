@@ -7,7 +7,7 @@ import './Sells.css';
 import '../../DisabledProductCard/DisabledCard.css'
 
 interface Product {
-  _id: number;
+  id: number;
   active: boolean;
   category: string;
   image: string;
