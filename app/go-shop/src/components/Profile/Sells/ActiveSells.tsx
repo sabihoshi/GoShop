@@ -4,17 +4,6 @@ import { Col, Row, Spinner } from 'react-bootstrap';
 import { getUserActiveSells } from '../../../services/userData';
 
 import './Sells.css';
-import { URLSearchParams } from 'url';
-
-interface User {
-    avatar: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    totalSells: number;
-    id: string;
-    isMe: boolean;
-}
 
 interface Product {
     category: string;
@@ -26,8 +15,19 @@ interface Product {
     city: string;
 }
 
+interface Params {
+    category: string;
+    id?: number;
+    image: string;
+    title: string;
+    price: number;
+    addedAt: Date;
+    city: string;
+}
+
 export interface ActiveSellsProps {
-    params: User;
+    params: Params;
+    history?: History; // import this from 'history' library
 }
 
 interface ActiveSellsState {
