@@ -7,7 +7,7 @@ import './Sells.css';
 
 interface Product {
     category: string;
-    _id: number;
+    id: string;
     image: string;
     title: string;
     price: number;
@@ -18,7 +18,7 @@ interface Product {
 
 interface Params {
     category: string;
-    _id: number;
+    id: string;
     image: string;
     title: string;
     price: number;
@@ -42,15 +42,15 @@ function ActiveSells({ params }: ActiveSellsProps) {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (params._id) {
-            getUserActiveSells(Number(params._id))
+        if (params.id) {
+            getUserActiveSells(params.id)
                 .then(res => {
                     setProduct(res.sells);
                     setLoading(false);
                 })
                 .catch(err => console.log(err))
         }
-    }, [params._id])
+    }, [params.id])
 
     return (
         <>
@@ -61,7 +61,7 @@ function ActiveSells({ params }: ActiveSellsProps) {
                         <Row>
                             {products
                                 .map(x =>
-                                    <Col xs={12} md={6} lg={4} key={x._id.toString()}>
+                                    <Col xs={12} md={6} lg={4} key={x.id.toString()}>
                                         <ProductCard params={x} />
                                     </Col>
                                 )

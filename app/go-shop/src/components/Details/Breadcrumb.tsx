@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface Params {
   category: string;
-  _id: number;
+  id: number;
   title: string;
 }
 
@@ -24,7 +24,7 @@ const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({ params }) => {
         <Link to={`/categories/${params.category!}`}>{params.category}</Link>
       </li>
       <li className="breadcrumb-item">
-        <Link to={`/categories/${params.category}/${params._id}/details`}>{params.title}</Link>
+        <Link to={`/categories/${params.category}/${params.id}/details`}>{params.title}</Link>
       </li>
     </Breadcrumb>
   )

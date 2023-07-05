@@ -13,7 +13,7 @@ interface ProfileProps {
         email: string;
         phoneNumber: string;
         totalSells: number;
-        _id: string;
+        id: string;
     }
 }
 
@@ -32,7 +32,7 @@ const ProfileSection: FC<ProfileProps> = ({ params }) => {
                         <p><FaSellsy /> {params.totalSells} sells in total</p>
                     </Col>
                     <span id="edit-icon">
-                        <Link to={`/profile/${params._id}/edit`}><GrEdit /></Link>
+                        <Link to={`/profile/${params.id}/edit`}><GrEdit /></Link>
                     </span>
                 </Row>
             </div>

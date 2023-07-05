@@ -8,7 +8,7 @@ import './Wishlist.css';
 interface Product {
     category: string;
     active: boolean;
-    _id: number;
+    id: string;
     image: string;
     title: string;
     price: number;
@@ -38,7 +38,7 @@ function Wishlist(): ReactElement | null {
           {products.length > 0 ? (
             <Row>
               {products.map((x: Product) => (
-                <Col xs={12} md={6} lg={4} key={x._id.toString()}>
+                <Col xs={12} md={6} lg={4} key={x.id.toString()}>
                   <ProductCard params={x} />
                 </Col>
               ))}

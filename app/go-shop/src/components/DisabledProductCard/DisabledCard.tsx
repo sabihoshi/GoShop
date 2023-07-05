@@ -5,7 +5,7 @@ import { activateSell } from '../../services/productData';
 
 interface DisabledCardProps {
     params: {
-        _id: number;
+        id: number;
         category: string;
         image: string;
         title: string;
@@ -25,9 +25,9 @@ function DisabledCard({ params, history }: DisabledCardProps) {
     const handleShow = () => setShow(true);
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        activateSell(params._id)
+        activateSell(params.id)
             .then(res => {
-                history.push(`/categories/${params.category}/${params._id}/details`)
+                history.push(`/categories/${params.category}/${params.id}/details`)
                 setShow(false);
             })
             .catch(err => console.log(err))
