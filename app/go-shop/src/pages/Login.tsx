@@ -13,8 +13,8 @@ function Login() {
         email: "",
         password: ""
     });
-    const { setUserData } = useContext(Context) as ContextValue;
 
+    const { setUserData } = useContext(Context) as ContextValue;
     const handleChanges = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value });

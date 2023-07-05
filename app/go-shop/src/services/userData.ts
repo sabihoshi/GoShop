@@ -13,8 +13,13 @@ export async function registerUser(userData: UserData) {
     })).json();
 }
 
-export async function loginUser(userData: UserData) {
-    return (await fetch(`/auth/login`, {
+interface IUserCredentials {
+    email: string;
+    password: string;
+}
+
+export async function loginUser(userData: IUserCredentials) {
+    return (await fetch(`/auth/login.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

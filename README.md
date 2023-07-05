@@ -1,1 +1,1 @@
-# GoSHop
+# GoShop
