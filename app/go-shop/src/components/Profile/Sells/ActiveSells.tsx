@@ -12,22 +12,11 @@ interface User {
     email: string;
     phoneNumber: string;
     totalSells: number;
-    _id: string;
+    id: string;
     isMe: boolean;
 }
 
 interface Product {
-    category: string;
-    id: string;
-    image: string;
-    title: string;
-    price: number;
-    addedAt: Date;
-    city: string;
-}
-
-
-interface Params {
     category: string;
     id: string;
     image: string;

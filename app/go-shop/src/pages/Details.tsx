@@ -11,7 +11,7 @@ import '../components/Details/ProductInfo/ProductInfo.css';
 import '../components/Details/Aside/Aside.css';
 
 interface Product {
-    _id: number;
+    id: number;
     title: string;
     seller: string;
     isSeller?: boolean;

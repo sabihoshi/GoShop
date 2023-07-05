@@ -26,7 +26,7 @@ function DisabledCard({ params }: DisabledCardProps) {
         e.preventDefault();
         activateSell(params.id)
             .then(res => {
-                navigate(`/categories/${params.category}/${params._id}/details`)
+                navigate(`/categories/${params.category}/${params.id}/details`)
                 setShow(false);
             })
             .catch(err => console.log(err))

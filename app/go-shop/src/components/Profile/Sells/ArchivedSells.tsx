@@ -47,7 +47,7 @@ const ArchivedSells: React.FC = () => {
                     {products
                         .filter(x => x.active === false)
                         .map(x =>
-                            <Col xs={12} md={6} lg={4} key={x._id.toString()}>
+                            <Col xs={12} md={6} lg={4} key={x.id.toString()}>
                                 <DisabledCard params={x} />
                             </Col>
                         )
