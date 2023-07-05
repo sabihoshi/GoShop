@@ -8,7 +8,7 @@ import './Wishlist.css';
 interface Product {
     category: string;
     active: boolean;
-    _id: string;
+    _id: number;
     image: string;
     title: string;
     price: number;

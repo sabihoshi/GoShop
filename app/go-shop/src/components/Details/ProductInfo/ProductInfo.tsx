@@ -14,7 +14,7 @@ interface Params {
   }
 
   interface ProductInfoProps {
-    params: Params;
+    params: Param | null;
   }
 
 const ProductInfo: FC<ProductInfoProps> = ({ params }) => {
