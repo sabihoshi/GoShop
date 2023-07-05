@@ -5,7 +5,7 @@ import Moment from "react-moment";
 
 interface Params {
     category: string;
-    _id: string;
+    _id: number;
     image: string;
     title: string;
     price: number;

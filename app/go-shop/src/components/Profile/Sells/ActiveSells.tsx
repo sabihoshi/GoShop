@@ -7,7 +7,7 @@ import './Sells.css';
 
 interface Product {
     category: string;
-    _id: string;
+    _id: number;
     image: string;
     title: string;
     price: number;
@@ -18,7 +18,7 @@ interface Product {
 
 interface Params {
     category: string;
-    _id: string;
+    _id: number;
     image: string;
     title: string;
     price: number;
@@ -43,7 +43,7 @@ function ActiveSells({ params }: ActiveSellsProps) {
     useEffect(() => {
         window.scrollTo(0, 0);
         if (params._id) {
-            getUserActiveSells(params._id)
+            getUserActiveSells(Number(params._id))
                 .then(res => {
                     setProduct(res.sells);
                     setLoading(false);

@@ -23,7 +23,7 @@ interface CategoriesProps {
 }
 
 interface Product {
-    _id: string;
+    _id: number;
     addedAt: Date;
     price: number;
     category: string, // add this

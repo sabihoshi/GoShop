@@ -16,11 +16,7 @@ interface UserData {
   repeatPassword: string;
 }
 
-interface RegisterProps {
-    history?: string
-}
-
-const Register: React.FC<RegisterProps> = ({ history }) => {
+const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [alertShow, setAlertShow] = useState(false);
   const [error, setError] = useState<string | null>(null);

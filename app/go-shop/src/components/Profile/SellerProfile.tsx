@@ -1,11 +1,12 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import ActiveSells, { ActiveSellsProps } from './Sells/ActiveSells'
+import ActiveSells from './Sells/ActiveSells'
 import { Col, Row, Button, Form, Modal } from 'react-bootstrap';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdEmail, MdPhoneAndroid } from 'react-icons/md'
 import { FaSellsy } from 'react-icons/fa'
 import { RiMessage3Fill } from 'react-icons/ri';
 import { createChatRoom } from '../../services/messagesData'
+import { useNavigate } from 'react-router-dom';
 
 interface SellerProfileProps {
   params: any; // replace 'any' with the actual type
@@ -23,11 +24,13 @@ function SellerProfile({ params, history }: SellerProfileProps) {
         setMessage(e.target.value)
     }
 
+    const navigate = useNavigate();
+
     const onMsgSent = (e: FormEvent) => {
         e.preventDefault();
         createChatRoom(params._id, message)
             .then((res: Response) => { 
-                history.push(`/messages`)
+                navigate(`/messages`)
             })
             .catch((err: Error) => console.log(err)) 
     }

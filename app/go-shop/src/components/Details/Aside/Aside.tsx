@@ -29,7 +29,7 @@ interface AsideProps {
   history: History;
 }
 
-function Aside({ params, history }: AsideProps) {
+function Aside({ params }: AsideProps) {
   const [showMsg, setShowMsg] = useState(false);
   const [showArchive, setShowArchive] = useState(false);
   const [message, setMessage] = useState("");
