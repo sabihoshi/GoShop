@@ -29,13 +29,13 @@ export async function getUser() {
     return response.data;
 }
 
-export async function getUserActiveSells(id: any) {
+export async function getUserActiveSells(id: number) {
     const response = await axiosInstance.get(`/products/sells/active.php?id=${id}`);
     return response.data;
 }
 
-export async function getUserArchivedSells() {
-    const response = await axiosInstance.get('/products/sells/archived');
+export async function getUserArchivedSells(id: number) {
+    const response = await axiosInstance.get(`/products/sells/archived.php?id${id}`);
     return response.data;
 }
 

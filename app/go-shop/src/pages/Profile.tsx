@@ -56,7 +56,7 @@ function Profile() {
             .then(res => setUser(res.user))
             .catch(err => console.log(err))
     }, [id])
-   
+
     return (
         <>
             {user && user.isMe ? (
@@ -71,7 +71,7 @@ function Profile() {
                         </Col>
                         <Col lg={10} sm={12}>
                             {active && <ActiveSells params={user}/>}
-                            {archived && <ArchivedSells />}
+                            {archived && <ArchivedSells params={user} />}
                             {wishlist && <Wishlist />}
                         </Col>
                     </Row>

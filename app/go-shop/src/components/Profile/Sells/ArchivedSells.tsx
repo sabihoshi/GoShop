@@ -8,7 +8,6 @@ import '../../DisabledProductCard/DisabledCard.css'
 
 interface Product {
   id: number;
-  active: boolean;
   category: string;
   image: string;
   title: string;
@@ -18,19 +17,23 @@ interface Product {
   description: string;
 }
 
-interface Response {
-  sells: Product[];
+interface Params {
+  id: number;
 }
 
-const ArchivedSells: React.FC = () => {
-  const [products, setProduct] = useState<Product[]>([]);
+export interface ArchivedSellsProps {
+  params: Params;
+}
+
+function ArchivedSells({ params }: ArchivedSellsProps) {
+  const [products, setProduct] =  useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getUserArchivedSells()
-      .then((res: Response) => {
-        setProduct(res.sells);
+    getUserArchivedSells(params.id)
+      .then((res: Product[]) => {
+        setProduct(res);
         setLoading(false)
       })
       .catch((err: Error) => console.log(err))
@@ -45,7 +48,6 @@ const ArchivedSells: React.FC = () => {
             {products.length > 0 ? (
                 <Row>
                     {products
-                        .filter(x => x.active === false)
                         .map(x =>
                             <Col xs={12} md={6} lg={4} key={x.id.toString()}>
                                 <DisabledCard params={x} />

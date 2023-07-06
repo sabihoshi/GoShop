@@ -6,8 +6,8 @@ import { getUserActiveSells } from '../../../services/userData';
 import './Sells.css';
 
 interface Product {
-    category: string;
     id: string;
+    category: string;
     image: string;
     title: string;
     price: number;
@@ -23,21 +23,16 @@ export interface ActiveSellsProps {
     params: Params;
 }
 
-interface ActiveSellsState {
-    products: Product[];
-    loading: boolean;
-}
-
 function ActiveSells({ params }: ActiveSellsProps) {
-    const [products, setProduct] = useState<ActiveSellsState['products']>([]);
-    const [loading, setLoading] = useState<ActiveSellsState['loading']>(true);
+    const [products, setProduct] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         if (params.id) {
             getUserActiveSells(params.id)
-                .then(res => {
-                    setProduct(res.sells);
+                .then((res: Product[]) => {
+                    setProduct(res);
                     setLoading(false);
                 })
                 .catch(err => console.log(err))
