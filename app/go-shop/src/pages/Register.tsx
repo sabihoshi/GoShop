@@ -117,7 +117,7 @@ const Register: React.FC = () => {
               </Form.Text>
             </Form.Group>
             <Form.Group className="col-lg-6">
-              <Form.Label>Reepeat Password *</Form.Label>
+              <Form.Label>Repeat Password *</Form.Label>
               <Form.Control type="password" name="repeatPassword" placeholder="Repeat password" onChange={() => handleChanges} required />
             </Form.Group>
           </Row>
