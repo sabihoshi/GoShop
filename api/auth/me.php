@@ -17,11 +17,7 @@ if (isset($_SESSION['user'])) {
     $userId = $_SESSION['user']['id'];
     $user = R::findOne('user', ' id = ? ', [$userId]);
     if ($user) {
-        $user_response = [
-            'id' => $user->id,
-            'username' => $user->username,
-        ];
-        $response->setContent(json_encode($user_response));
+        $response->setContent(json_encode($user->jsonSerialize()));
         $response->headers->set('Content-Type', 'application/json');
         $response->setStatusCode(Response::HTTP_OK);
     } else {

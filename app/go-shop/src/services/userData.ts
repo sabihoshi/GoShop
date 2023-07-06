@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { UserData } from "../types";
+import {User, UserData} from "../types";
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost/GoShop/api',
     withCredentials: true,
-    headers:{
+    headers: {
         'Content-Type': 'application/json'
     }
 });
@@ -24,7 +24,8 @@ export async function loginUser(userData: IUserCredentials) {
     return response.data;
 }
 
-export async function getUser() {
+
+export async function getLoggedInUser(): Promise<User> {
     const response = await axiosInstance.get('/auth/me.php');
     return response.data;
 }
@@ -44,12 +45,22 @@ export async function getUserWishlist() {
     return response.data;
 }
 
-export async function editUserProfile(id: any, data: any) {
-    const response = await axiosInstance.patch(`/user/edit-profile.php?id=${id}`, data);
+export async function editUserProfile(id: any, user: User) {
+    let formData = new FormData();
+    Object.keys(user).forEach(key => {
+        // @ts-ignore
+        formData.append(key, user[key]);
+    });
+
+    const response = await axiosInstance.post(`/user/editProfile.php?id=${id}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
     return response.data;
 }
 
 export async function getUserById(id: number) {
-    const response = await axiosInstance.get(`/user/getUserById/${id}`);
+    const response = await axiosInstance.get(`/user/getUserById.php?id=${id}`);
     return response.data;
 }

@@ -1,50 +1,24 @@
 import {useEffect, useState} from 'react';
 import ActiveSells from '../components/Profile/Sells/ActiveSells';
-import {editUserProfile, getUser} from '../services/userData';
+import {editUserProfile, getLoggedInUser} from '../services/userData';
 import {Alert, Button, Col, OverlayTrigger, Row, Spinner, Tooltip} from 'react-bootstrap';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {MdEmail, MdPhoneAndroid} from 'react-icons/md'
 import {TiTick} from 'react-icons/ti'
 import {AiFillCloseSquare} from 'react-icons/ai'
 import {useNavigate} from 'react-router-dom';
-
-
-interface User {
-    id: number;
-    name: string;
-    phoneNumber: string;
-    email: string;
-    avatar: string | File;
-    category: string;
-    image: string;
-    title: string;
-    price: number;
-    addedAt: Date;
-    city: string;
-}
+import {getDummyUser, User} from "../types";
 
 function EditProfile() {
-    const [user, setUser] = useState<User>({
-        id: 0,
-        name: "",
-        phoneNumber: "",
-        email: "",
-        avatar: "",
-        category: "",
-        image: "",
-        title: "",
-        price: 0,
-        addedAt: new Date(),
-        city: ""
-    });
+    const [user, setUser] = useState<User>(getDummyUser());
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [alertShow, setAlertShow] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getUser()
-            .then(res => setUser(res.user))
+        getLoggedInUser()
+            .then(res => setUser(res))
             .catch(err => console.log(err))
     }, [setUser])
 
@@ -56,7 +30,7 @@ function EditProfile() {
     const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value, files} = e.target;
         if (name === 'avatar' && files) {
-            setUser({...user, avatar: files[0]});
+            setUser({...user, avatarFile: files[0]});
         } else {
             setUser({...user, [name]: value});
         }
@@ -64,61 +38,18 @@ function EditProfile() {
 
     const handleSave = (e: React.FormEvent) => {
         e.preventDefault();
-        let {id, name, phoneNumber, email, avatar} = user;
-        let obj: User = {
-            id,
-            name,
-            phoneNumber,
-            email,
-            avatar,
-            category: "",
-            image: "",
-            title: "",
-            price: 0,
-            addedAt: new Date(),
-            city: ""
-        }
         setLoading(true);
-        if (typeof avatar == 'object') {
-            getBase64(avatar)
-                .then((data) => {
-                    obj.avatar = data;
-                    editUserProfile(id, obj)
-                        .then(res => {
-                            if (!res.error) {
-                                navigate(`/profile/${id}`);
-                            } else {
-                                setLoading(false);
-                                setError(res.error);
-                                setAlertShow(true);
-                            }
-                        })
-                        .catch(err => console.error('edit profile err: ', err))
-                })
-                .catch(err => console.log('base64 error: ', err));
-        } else {
-            editUserProfile(id, obj)
-                .then(res => {
-                    if (!res.error) {
-                        navigate(`/profile/${id}`);
-                    } else {
-                        setLoading(false);
-                        setError(res.error);
-                        setAlertShow(true);
-                    }
-                })
-                .catch(err => console.error('edit profile err: ', err))
-        }
-    }
-
-
-    function getBase64(file: File): Promise<string | File> {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = error => reject(error);
-        });
+        editUserProfile(user.id, user)
+            .then(res => {
+                if (!res.error) {
+                    navigate(`/profile/${user.id}`);
+                } else {
+                    setLoading(false);
+                    setError(res.error);
+                    setAlertShow(true);
+                }
+            })
+            .catch(err => console.error('edit profile err: ', err))
     }
 
     return (
@@ -140,7 +71,7 @@ function EditProfile() {
                                                     overlay={<Tooltip>Click to select a photo</Tooltip>}
                                     >
                                         <img id="avatar"
-                                             src={typeof user.avatar === 'string' ? user.avatar : URL.createObjectURL(user.avatar)}
+                                             src={typeof user.avatarFile == 'object' ? URL.createObjectURL(user.avatarFile) : user.avatar}
                                              alt="user-avatar"/>
 
                                     </OverlayTrigger>

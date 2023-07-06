@@ -13,7 +13,7 @@ R::setup('mysql:host=localhost;dbname=goshop', 'root', '');
 $request = Request::createFromGlobals();
 $response = new Response();
 
-if ($request->getMethod() === 'POST') {
+if ($request->isMethod('POST')) {
 
     $json = $request->getContent();
     $userData = json_decode($json, true);

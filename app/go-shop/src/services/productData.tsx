@@ -39,12 +39,12 @@ export async function editProduct(id: number, product: object) {
 }
 
 export async function activateSell(id: number) {
-    const response = await axios.get(`/products/enable.php?id=${id}`);
+    const response = await axios.get(`/products/enable.php?id=${id}`, {withCredentials: true});
     return response.data;
 }
 
 export async function archiveSell(id: number) {
-    const response = await axios.get(`/products/archive.php?id=${id}`);
+    const response = await axios.get(`/products/archive.php?id=${id}`, {withCredentials: true});
     return response.data;
 }
 

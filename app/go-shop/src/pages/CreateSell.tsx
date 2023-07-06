@@ -1,29 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Form, Button, Col, Spinner, Alert, Row } from 'react-bootstrap';
-import { createProduct } from '../services/productData';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Alert, Button, Col, Form, Row, Spinner} from 'react-bootstrap';
+import {createProduct} from '../services/productData';
 import SimpleSider from '../components/Siders/SimpleSider';
 import '../components/CreateSell/CreateSell.css';
-
-interface Product {
-    title: string;
-    price: number;
-    description: string;
-    city: string;
-    category: string;
-    image: File | string;
-}
+import {getDummyProduct, Product} from "../types";
 
 function CreateSell() {
-    let [product, setProduct] = useState<Product>({
-        title: "",
-        price: 0,
-        description: "",
-        city: "",
-        category: "",
-        image: ""
-    });
-
+    let [product, setProduct] = useState<Product>(getDummyProduct());
     let [loading, setLoading] = useState(false);
     let [alertShow, setAlertShow] = useState(false);
     let [errors, setErrors] = useState([]);
@@ -34,14 +18,14 @@ function CreateSell() {
         e.preventDefault();
         setProduct({...product, [e.target.name]: e.target.value});
         if (e.target.files) {
-            setProduct({ ...product, image: e.target.files[0] });
+            setProduct({...product, image: e.target.files[0]});
         }
     }
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        let { title, price, description, city, category, image } = product;
-        let obj: Partial<Product> = { title, price, description, city, category };
+        let {title, price, description, city, category, image} = product;
+        let obj: Partial<Product> = {title, price, description, city, category};
         setLoading(true);
         if (typeof image == 'object') {
             getBase64(image)
@@ -74,7 +58,7 @@ function CreateSell() {
 
     return (
         <>
-            <SimpleSider />
+            <SimpleSider/>
             <div className='container'>
                 <h1 className="heading">Add a Product</h1>
                 <Form onSubmit={onSubmitHandler}>
@@ -88,29 +72,32 @@ function CreateSell() {
                     <Row>
                         <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter title" name="title" required onChange={onChangeHandler} />
+                            <Form.Control type="text" placeholder="Enter title" name="title" required
+                                          onChange={onChangeHandler}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridPrice">
                             <Form.Label>Price</Form.Label>
-                            <Form.Control type="number" step="0.01" placeholder="Price" name="price" required onChange={onChangeHandler} />
+                            <Form.Control type="number" step="0.01" placeholder="Price" name="price" required
+                                          onChange={onChangeHandler}/>
                         </Form.Group>
                     </Row>
 
                     <Form.Group controlId="formGridDescription.ControlTextarea1">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} name="description" required onChange={onChangeHandler} />
+                        <Form.Control as="textarea" rows={3} name="description" required onChange={onChangeHandler}/>
                     </Form.Group>
 
                     <Row>
                         <Form.Group as={Col} controlId="formGridCity">
                             <Form.Label>City</Form.Label>
-                            <Form.Control name="city" placeholder="Sofia" required onChange={onChangeHandler} />
+                            <Form.Control name="city" placeholder="Sofia" required onChange={onChangeHandler}/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridCategory">
                             <Form.Label>Category</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose..." name="category" required onChange={onChangeHandler}>
+                            <Form.Control as="select" defaultValue="Choose..." name="category" required
+                                          onChange={onChangeHandler}>
                                 <option>Choose...</option>
                                 <option>properties</option>
                                 <option>auto</option>
@@ -122,14 +109,14 @@ function CreateSell() {
                             </Form.Control>
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="formGridImage" >
+                        <Form.Group as={Col} controlId="formGridImage">
                             <Form.Label>Image</Form.Label>
-                            <Form.Control name="image" type="file" required onChange={onChangeHandler} />
+                            <Form.Control name="image" type="file" required onChange={onChangeHandler}/>
                         </Form.Group>
                     </Row>
                     {loading ?
-                        <Button className="col-lg-12" variant="dark" disabled >
-                            Please wait... <Spinner animation="border" />
+                        <Button className="col-lg-12" variant="dark" disabled>
+                            Please wait... <Spinner animation="border"/>
                         </Button>
                         :
                         <Button className="col-lg-12" variant="dark" type="submit">Add product</Button>

@@ -5,18 +5,11 @@ import {MdEmail, MdPhoneAndroid} from 'react-icons/md'
 import {FaSellsy} from 'react-icons/fa'
 import {GrEdit} from 'react-icons/gr';
 import React from 'react';
+import {User} from "../../types";
 
-interface ProfileProps {
-    id: number;
-    avatar: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    totalSells: number;
-}
 
 interface Params {
-    params: ProfileProps;
+    params: User;
 }
 
 const ProfileSection: React.FC<Params> = ({ params }: Params) => {

@@ -1,4 +1,3 @@
-
 export interface UserData {
     name: string | null;
     username: string;
@@ -10,12 +9,50 @@ export interface UserData {
     repeatPassword: string;
 }
 
- export interface Product {
-    category: string;
-    _id: number;
-    image: string;
+export interface Product {
     title: string;
+    description: string;
+    category: string;
+    id: number;
+    image: File | string;
     price: number;
     addedAt: Date;
     city: string;
+}
+
+export function getDummyProduct(): Product {
+    return {
+        title: '',
+        description: '',
+        category: '',
+        id: 0,
+        image: '',
+        price: 0,
+        addedAt: new Date(),
+        city: ''
+    }
+}
+
+export interface User {
+    id: number;
+    username: string;
+    email: string;
+    name: string;
+    gender: string;
+    phoneNumber: string;
+    avatar?: string;
+    avatarFile?: File;
+    totalSells: number;
+}
+
+export function getDummyUser(): User {
+    return {
+        id: 0,
+        username: '',
+        email: '',
+        name: '',
+        gender: '',
+        phoneNumber: '',
+        totalSells: 0
+    }
 }

@@ -7,9 +7,10 @@ import { FaSellsy } from 'react-icons/fa'
 import { RiMessage3Fill } from 'react-icons/ri';
 import { createChatRoom } from '../../services/messagesData'
 import { useNavigate } from 'react-router-dom';
+import {User} from "../../types";
 
 interface SellerProfileProps {
-  params: any; // replace 'any' with the actual type
+  params: User;
 }
 
 function SellerProfile({ params }: SellerProfileProps) {

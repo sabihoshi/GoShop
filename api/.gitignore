@@ -1,3 +1,6 @@
+# Image uploads
+/user/uploads
+
 ### Composer template
 composer.phar
 /vendor/
