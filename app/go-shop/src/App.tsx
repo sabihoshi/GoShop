@@ -35,7 +35,7 @@ function App() {
                <Route path='/add-product' element={<CreateSell/>} />;
                <Route path='/profile/:id' element={<Profile/>} />;
                <Route path='/profile/:id/edit' element={<EditProfile/>} />;
-               <Route path="/messages/:id" element={<Messages/>}/>
+               <Route path="/messages" element={<Messages/>}/>
                <Route path='/messages/:id' element={<Messages/>} />;
                <Route path="*" element={<Error404/>}/>
             </Routes>
