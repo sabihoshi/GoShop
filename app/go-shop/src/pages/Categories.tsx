@@ -44,34 +44,33 @@ const Categories: React.FC = () => {
     useEffect(() => {
         setPage(1);
         setLoading(true);
-        setQuery("")
+        setQuery(query)
         getAll(1, currentCategory, query)
             .then(res => {
                 setProduct(res);
                 setLoading(false);
                 setPage(page => page + 1);
-                setQuery("");
-            })
-            .catch(err => console.log(err));
-    }, [currentCategory, setProduct])
-
-    useEffect(() => {
-        setPage(1);
-        setLoading(true);
-        getAll(2, currentCategory, query)
-            .then(res => {
-                if (query === "") {
-                    console.log(res);
-                    setProduct(products => [...products, ...res]);
-                } else {
-                    console.log(res);
-                    setProduct(res)
-                }
-                setLoading(false);
-                setPage(page => page + 1);
             })
             .catch(err => console.log(err));
     }, [query, currentCategory])
+
+    // useEffect(() => {
+    //     setPage(1);
+    //     setLoading(true);
+    //     getAll(2, currentCategory, query)
+    //         .then(res => {
+    //             if (query === "") {
+    //                 console.log(res);
+    //                 setProduct(products => [...products, ...res]);
+    //             } else {
+    //                 console.log(res);
+    //                 setProduct(res)
+    //             }
+    //             setLoading(false);
+    //             setPage(page => page + 1);
+    //         })
+    //         .catch(err => console.log(err));
+    // }, [page])
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()

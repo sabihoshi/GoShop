@@ -27,7 +27,7 @@ function Aside({params}: AsideProps) {
     const [showMsg, setShowMsg] = useState(false);
     const [showArchive, setShowArchive] = useState(false);
     const [message, setMessage] = useState("");
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(true);
     let navigate = useNavigate();
 
     const handleClose = () => setShowMsg(false);

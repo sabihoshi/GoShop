@@ -23,8 +23,8 @@ if (isset($_SESSION['user']) && $request->isMethod('GET')) {
         $conversation = R::find('conversation', ' chat_id = ? ', [$chat->id]);
         $userChats[] = array(
             'id' => $chat->id,
-            'buyer' => R::findOne('user', $chat->receiver_id),
-            'seller' => R::findOne('user', $chat->seller_id),
+            'buyer' => R::findOne('user', ' id = ? ', [$chat->sender_id]),
+            'seller' => R::findOne('user', ' id = ? ', [$chat->receiver_id]),
             'conversation' => array_values($conversation),
         );
     }

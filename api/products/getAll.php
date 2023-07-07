@@ -10,7 +10,7 @@ R::setup('mysql:host=localhost;dbname=goshop', 'root', '');
 $request = Request::createFromGlobals();
 $response = new Response();
 
-$limit = 10;
+$limit = 100;
 $page = $request->query->get('page', 1);
 $offset = ($page - 1) * $limit;
 
@@ -29,7 +29,7 @@ if (!empty($query)) {
     $sql .= ' WHERE p.title LIKE ?';
     $params[] = "%$query%";
 }
-elseif (!empty($category) && $category !== 'all') {
+elseif (isset($category) && $category !== 'all') {
     $sql .= ' WHERE c.name = ?';
     $params[] = $category;
 }

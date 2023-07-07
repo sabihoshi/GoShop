@@ -24,7 +24,7 @@ interface Chat {
     id: number;
     seller: User;
     buyer: User;
-    conversation: { message: string, senderId: number }[];
+    conversation: { message: string, sender_id: number }[];
     isBuyer: boolean | null;
 }
 

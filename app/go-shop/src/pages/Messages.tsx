@@ -17,7 +17,7 @@ interface Chat {
     id: number;
     seller: User;
     buyer: User;
-    conversation: { message: string, senderId: number }[];
+    conversation: { message: string, sender_id: number }[];
     isBuyer: boolean | null;
 }
 
@@ -82,7 +82,7 @@ function Messages() {
                 setSelected({
                     chat: foundChat,
                     isBuyer: foundChat.isBuyer,
-                    myId: Number(chatId)
+                    myId: conversations.myId
                 });
             }
         }
@@ -97,7 +97,7 @@ function Messages() {
                 setAlertShow(true);
                 setMessage("");
                 if (selected) {
-                    selected.chat.conversation.push({message, senderId: res.senderId});
+                    selected.chat.conversation.push({message, sender_id: res.senderId});
                     setSelected(selected);
                 }
 
@@ -119,7 +119,7 @@ function Messages() {
                             {conversations.chats.map(x =>
                                 <div className="chat-connections" key={x.id}>
                                     <Link onClick={() => setIsSelected(true)} to={`/messages/${x.id}`}>
-                                        {x.isBuyer ?
+                                        {x.buyer.id == conversations.myId ?
                                             <><img src={x.seller.avatar} alt="user-avatar"/>
                                                 <span>{x.seller.name}</span></>
                                             :
@@ -138,7 +138,7 @@ function Messages() {
                     {isSelected &&
                         <>
                             <div className="chat-selected-header col-lg-12">
-                                {selected.isBuyer ?
+                                {selected.myId == selected.chat.buyer.id ?
                                     <Link to={`/profile/${selected.chat.seller.id}`}>
                                         <img src={selected.chat.seller.avatar} alt="user-avatar"/>
                                         <span>{selected.chat.seller.name}</span>
@@ -159,7 +159,7 @@ function Messages() {
                             }
                             <div className="chat-selected-body col-lg-12">
                                 {selected.chat.conversation.map((x, index) =>
-                                    <div className={selected.myId === x.senderId ? 'me' : "not-me"}
+                                    <div className={selected.myId == x.sender_id ? "not-me" : 'me'}
                                          key={index}>
                                         <span className="message">{x.message}</span>
                                     </div>
