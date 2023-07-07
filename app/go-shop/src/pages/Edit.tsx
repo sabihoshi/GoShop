@@ -35,7 +35,7 @@ function Edit() {
     useEffect(() => {
         window.scrollTo(0, 0);
         getSpecific(Number(productId))
-            .then(res => setProduct(res))
+            .then(res => setProduct(res.product))
             .catch(err => console.log(err));
     }, [productId])
 

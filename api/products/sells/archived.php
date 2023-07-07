@@ -23,7 +23,7 @@ if (null === $id) {
 } else {
     $activeSells = R::find('product', ' seller_id = ? AND status = ?', [$id, 'archived']);
 
-    $activeSellsArray = array_values(array_map(fn($sell) => $sell->export(), $activeSells));
+    $activeSellsArray = array_values($activeSells);
 
     $response->setContent(json_encode($activeSellsArray));
     $response->setStatusCode(Response::HTTP_OK);

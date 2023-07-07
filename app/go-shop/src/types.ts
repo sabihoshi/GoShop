@@ -9,12 +9,18 @@ export interface UserData {
     repeatPassword: string;
 }
 
+export interface Category {
+    id: number;
+    name: string;
+}
+
 export interface Product {
     title: string;
     description: string;
     category: string;
     id: number;
-    image: File | string;
+    image: string;
+    imageFile?: File;
     price: number;
     addedAt: Date;
     city: string;

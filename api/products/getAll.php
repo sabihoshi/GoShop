@@ -17,7 +17,12 @@ $offset = ($page - 1) * $limit;
 $query = $request->query->get('search');
 $category = $request->query->get('category');
 
-$sql = 'SELECT p.*, c.name as category FROM product p JOIN category c ON p.category_id = c.id';
+$sql = 'SELECT p.*, 
+           c.name as category, 
+           u.name as seller 
+        FROM product p 
+            JOIN category c ON p.category_id = c.id 
+            JOIN user u ON p.seller_id = u.id';
 $params = [];
 
 if (!empty($query)) {

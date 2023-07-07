@@ -31,7 +31,7 @@ const Register: React.FC = () => {
     repeatPassword: ''
   });
 
-  const handleChanges = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChanges = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     e.preventDefault();
     setUserData({ ...userData, [e.target.name]: e.target.value });
   }
@@ -68,14 +68,14 @@ const Register: React.FC = () => {
           <Row>
             <Form.Group controlId="forName" className="col-lg-5">
               <Form.Label>Name *</Form.Label>
-              <Form.Control type="text" name="name" placeholder="Ivan Ivanov" onChange={() => handleChanges} required />
+              <Form.Control type="text" name="name" placeholder="Ivan Ivanov" onChange={handleChanges} required />
               <Form.Text muted>
                 The name can be your real one or a username.
               </Form.Text>
             </Form.Group>
             <Form.Group controlId="forUsername" className="col-lg-4">
               <Form.Label>Username *</Form.Label>
-              <Form.Control type="text" name="username" placeholder="Username" onChange={() => handleChanges} required />
+              <Form.Control type="text" name="username" placeholder="Username" onChange={handleChanges} required />
               <Form.Text muted>
                 Must be unique, 8 characters or more
               </Form.Text>
@@ -86,7 +86,7 @@ const Register: React.FC = () => {
             </Form.Group> */}
             <Form.Group as={Col} controlId="formGridGender" className="col-lg-3">
               <Form.Label>Gender</Form.Label>
-              <Form.Control as="select" defaultValue="not specified" name="gender" onChange={() => handleChanges}>
+              <Form.Control as="select" defaultValue="not specified" name="gender" onChange={handleChanges}>
                 <option>male</option>
                 <option>female</option>
                 <option>not specified</option>
@@ -96,7 +96,7 @@ const Register: React.FC = () => {
           <Row>
             <Form.Group className="col-lg-12">
               <Form.Label>Phone Number *</Form.Label>
-              <Form.Control type="text" name="phoneNumber" placeholder="+359888888888" onChange={() => handleChanges} required />
+              <Form.Control type="text" name="phoneNumber" placeholder="+639XXXXXXXXX" onChange={handleChanges} required />
               <Form.Text muted>
                 Phone Number should be a valid BG number.
               </Form.Text>
@@ -105,20 +105,20 @@ const Register: React.FC = () => {
           <Row>
             <Form.Group controlId="formBasicEmail" className="col-lg-12">
               <Form.Label>Email address *</Form.Label>
-              <Form.Control type="email" name="email" placeholder="ivan@abv.bg" onChange={() => handleChanges} required />
+              <Form.Control type="email" name="email" placeholder="ivan@abv.bg" onChange={handleChanges} required />
             </Form.Group>
           </Row>
           <Row>
             <Form.Group controlId="formBasicPassword" className="col-lg-6">
               <Form.Label>Password *</Form.Label>
-              <Form.Control type="password" name="password" placeholder="Password" onChange={() => handleChanges} required />
+              <Form.Control type="password" name="password" placeholder="Password" onChange={handleChanges} required />
               <Form.Text muted>
                 Your password must be 8-20 characters long
               </Form.Text>
             </Form.Group>
             <Form.Group className="col-lg-6">
               <Form.Label>Repeat Password *</Form.Label>
-              <Form.Control type="password" name="repeatPassword" placeholder="Repeat password" onChange={() => handleChanges} required />
+              <Form.Control type="password" name="repeatPassword" placeholder="Repeat password" onChange={handleChanges} required />
             </Form.Group>
           </Row>
           {loading ? (

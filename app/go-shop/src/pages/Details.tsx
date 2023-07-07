@@ -9,68 +9,38 @@ import {useParams} from 'react-router-dom';
 
 import '../components/Details/ProductInfo/ProductInfo.css';
 import '../components/Details/Aside/Aside.css';
-
-interface Product {
-    id: number;
-    title: string;
-    seller: string;
-    isSeller?: boolean;
-    price?: number;
-    isAuth: boolean;
-    sellerId?: number;
-    avatar?: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    createdSells?: number;
-    category: string;
-    isWished: boolean;
-    image: string;
-    description: string;
-    addedAt: string;
-}
-
+import {Category, Product, User} from "../types";
+import {getLoggedInUser} from "../services/userData";
 
 function Details() {
     let {id: productId} = useParams();
-    let [product, setProduct] = useState<Product>({
-        id: 0,
-        title: "",
-        seller: "",
-        isSeller: false,
-        price: 0,
-        isAuth: false,
-        sellerId: 0,
-        avatar: "",
-        name: "",
-        email: "",
-        phoneNumber: "",
-        createdSells: 0,
-        category: "",
-        isWished: false,
-        image: "",
-        description: "",
-        addedAt: ""
-    });
+    let [product, setProduct] = useState<Product>();
+    let [category, setCategory] = useState<Category>();
+    let [seller, setSeller] = useState<User>();
+    let [user, setUser] = useState<User>();
     let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0)
         getSpecific(Number(productId!))
             .then(res => {
-                setProduct(res);
-                setLoading(false);
+                setProduct(res.product);
+                setCategory(res.category);
+                setSeller(res.seller);
             })
+            .then(() => getLoggedInUser().then(res => {
+                setUser(res);
+                setLoading(false);
+            }))
             .catch(err => console.log(err));
 
     }, [productId, setProduct, setLoading])
-
 
     return (
         <>
             <SimpleSider/>
             <div className="container">
-                {!loading && product ? (
+                {!loading && user && category && seller && product ? (
                     <>
                         <Breadcrumb params={product}/>
                         <Row>
@@ -78,7 +48,7 @@ function Details() {
                                 <ProductInfo params={product}/>
                             </Col>
                             <Col lg={4}>
-                                <Aside params={product}/>
+                                <Aside params={{'product': product, 'category': category, 'user': user, 'seller': seller}}/>
                             </Col>
                         </Row></>) : (<Spinner animation="border"/>)}
             </div>

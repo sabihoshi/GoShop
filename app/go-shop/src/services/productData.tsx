@@ -1,6 +1,7 @@
 import axios from 'axios';
+import {Category, Product, User} from "../types";
 
-const baseUrl = 'http://localhost/GoShop/api';
+const baseUrl = `http://${window.location.hostname}:80/GoShop/api`;
 
 export async function getAll(page: number, category: string = "all", query: string = "") {
     const response = await axios.get(`${baseUrl}/products/getAll.php`, {
@@ -13,18 +14,32 @@ export async function getAll(page: number, category: string = "all", query: stri
     return response.data;
 }
 
-export async function getSpecific(id: number) {
+interface ProductDto {
+    product: Product,
+    seller: User,
+    category: Category
+}
+
+export async function getSpecific(id: number): Promise<ProductDto> {
     const response = await axios.get(`${baseUrl}/products/getSpecific.php?id=${id}`, {withCredentials: true});
     return response.data;
 }
 
 export async function createProduct(product: object) {
-    const response = await axios.post(`${baseUrl}/products/create.php`, product, {
+    let productData = new FormData();
+
+    Object.keys(product).forEach(key => {
+        // @ts-ignore
+        productData.append(key, product[key]);
+    });
+
+    const response = await axios.post(`${baseUrl}/products/createProduct.php`, productData, {
         withCredentials: true,
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
         },
     });
+
     return response.data;
 }
 

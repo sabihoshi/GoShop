@@ -46,7 +46,7 @@ if (isset($_SESSION['user']) && isset($id) && is_numeric($id)) {
                         mkdir($targetDir, 0777, true);
                     }
                     if (move_uploaded_file($file['tmp_name'], $targetDir . $fileName)) {
-                        $user->avatar = "http://localhost/GoShop/api/user/uploads/" . $fileName;
+                        $user->avatar = "http://{$_SERVER['HTTP_HOST']}/GoShop/api/user/uploads/" . $fileName;
                     }
                 }
                 $user->totalSells = $userData['totalSells'] ?? $user->totalSells;

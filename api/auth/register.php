@@ -17,7 +17,6 @@ if ($request->getMethod() === 'POST') {
     $json = $request->getContent();
     $userData = json_decode($json, true);
 
-    // Extract user details from request data
     $username = $userData['username'] ?? null;
     $password = $userData['password'] ?? null;
     $repeatPassword = $userData['repeatPassword'] ?? null;
@@ -27,7 +26,6 @@ if ($request->getMethod() === 'POST') {
     $gender = $userData['gender'] ?? null;
     $phoneNumber = $userData['phoneNumber'] ?? null;
 
-    // Validate password match
     if ($password !== $repeatPassword) {
         $response->setContent(json_encode([
             'status' => 'error',
@@ -42,12 +40,10 @@ if ($request->getMethod() === 'POST') {
     if ($username && $password && $email && $phoneNumber) {
         $user = R::dispense('user');
 
-        // Set user details
         $user->username = $username;
         $user->password = password_hash($password, PASSWORD_BCRYPT);
         $user->email = $email;
         $user->name = $name;
-        $user->lastName = $lastName;
         $user->gender = $gender;
         $user->phoneNumber = $phoneNumber;
 

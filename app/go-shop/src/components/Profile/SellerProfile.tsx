@@ -29,7 +29,7 @@ function SellerProfile({ params }: SellerProfileProps) {
     const onMsgSent = (e: FormEvent) => {
         e.preventDefault();
         createChatRoom(params.id, message)
-            .then((res: Response) => { 
+            .then((res) => {
                 navigate(`/messages`)
             })
             .catch((err: Error) => console.log(err)) 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {User, UserData} from "../types";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost/GoShop/api',
+    baseURL: `http://${window.location.hostname}:80/GoShop/api`,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
@@ -36,12 +36,17 @@ export async function getUserActiveSells(id: number) {
 }
 
 export async function getUserArchivedSells(id: number) {
-    const response = await axiosInstance.get(`/products/sells/archived.php?id${id}`);
+    const response = await axiosInstance.get(`/products/sells/archived.php?id=${id}`);
     return response.data;
 }
 
 export async function getUserWishlist() {
-    const response = await axiosInstance.get('/products/wishlist/getWishlist');
+    const response = await axiosInstance.get('/products/wishlist/getWishlist.php');
+    return response.data;
+}
+
+export async function isLoggedIn(): Promise<boolean> {
+    const response = await axiosInstance.get('/auth/isAuthorized.php');
     return response.data;
 }
 

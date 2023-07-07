@@ -32,7 +32,7 @@ function Wishlist(): ReactElement | null {
 
   return (
     <>
-      {!loading ? (
+      {!loading && products ? (
         <>
           <h1 className="heading">Wishlist</h1>
           {products.length > 0 ? (

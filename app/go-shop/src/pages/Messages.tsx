@@ -1,28 +1,34 @@
-import { useState, useEffect } from 'react';
-import { getUserConversations, sendMessage } from '../services/messagesData';
-import { Container, Row, Form, InputGroup, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import {getUserConversations, sendMessage} from '../services/messagesData';
+import {Container, Row, Form, InputGroup, Button, Alert} from 'react-bootstrap';
+import {json, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import '../components/Messages/Aside.css';
 import '../components/Messages/Article.css';
 
 interface User {
-    _id: string;
+    id: number;
     avatar: string;
     name: string;
 }
 
 interface Chat {
-    _id: number;
+    id: number;
     seller: User;
     buyer: User;
-    conversation: { message: string, senderId: string }[];
+    conversation: { message: string, senderId: number }[];
     isBuyer: boolean | null;
 }
 
+interface Conversations {
+    chats: Chat[];
+    isBuyer: boolean | null;
+    myId: number;
+}
+
 interface Selected {
-    chats: Chat;
+    chat: Chat;
     isBuyer: boolean | null;
     myId: number;
 }
@@ -32,25 +38,25 @@ type MatchParams = {
 }
 
 function Messages() {
-    let { id } = useParams<MatchParams>();
+    let {id} = useParams<MatchParams>();
     let chatId = id;
-    const [conversations, setConversations] = useState<Chat[]>([]);
+    const [conversations, setConversations] = useState<Conversations>();
     const [isSelected, setIsSelected] = useState(false);
     const [selected, setSelected] = useState<Selected>({
-        chats: {
-            _id: 0,
+        chat: {
+            id: 0,
             seller: {
-                _id: "",
+                id: 0,
                 avatar: "",
                 name: ""
             },
             buyer: {
-                _id: "",
+                id: 0,
                 avatar: "",
                 name: ""
             },
             conversation: [],
-            isBuyer: null
+            isBuyer: null,
         },
         isBuyer: null,
         myId: 0
@@ -65,17 +71,22 @@ function Messages() {
                 setConversations(res);
             })
             .catch(err => console.log(err));
-        if (isSelected) {
-            const foundChat = conversations.find((x: Chat) => x._id === Number(chatId));
+    }, [chatId]);
+
+    useEffect(() => {
+        if (conversations) {
+            console.log(`Selected chat id: ${chatId}`)
+            const foundChat = conversations.chats.find((x: Chat) => x.id == Number(chatId));
             if (foundChat) {
+                console.log("Found chat: ", json(foundChat));
                 setSelected({
-                    chats: foundChat,
+                    chat: foundChat,
                     isBuyer: foundChat.isBuyer,
-                    myId: 0 // You may need to adjust this value according to your logic
+                    myId: Number(chatId)
                 });
             }
         }
-    }, [isSelected, chatId, setSelected]);
+    }, [isSelected, chatId, conversations]);
 
     const handleMsgSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -85,7 +96,11 @@ function Messages() {
                 setAlert("Message sent!");
                 setAlertShow(true);
                 setMessage("");
-                setSelected({ ...selected, chats: { ...selected.chats, conversation: [...selected.chats.conversation, { message, senderId: res.sender }] } });
+                if (selected) {
+                    selected.chat.conversation.push({message, senderId: res.senderId});
+                    setSelected(selected);
+                }
+
                 setTimeout(() => {
                     setAlert(null);
                     setAlertShow(false);
@@ -99,15 +114,17 @@ function Messages() {
             <Row>
                 <aside className="col-lg-4 col-md-4">
                     <h3>Conversations</h3>
-                    {conversations.length >= 1 ?
+                    {conversations && conversations.chats?.length >= 1 ?
                         <>
-                            {conversations.map(x =>
-                                <div className="chat-connections" key={x._id}>
-                                    <Link onClick={() => setIsSelected(true)} to={`/messages/${x._id}`}>
+                            {conversations.chats.map(x =>
+                                <div className="chat-connections" key={x.id}>
+                                    <Link onClick={() => setIsSelected(true)} to={`/messages/${x.id}`}>
                                         {x.isBuyer ?
-                                            <><img src={x.seller.avatar} alt="user-avatar" /> <span>{x.seller.name}</span></>
+                                            <><img src={x.seller.avatar} alt="user-avatar"/>
+                                                <span>{x.seller.name}</span></>
                                             :
-                                            <><img src={x.buyer.avatar} alt="user-avatar" /> <span>{x.buyer.name}</span></>
+                                            <><img src={x.buyer.avatar} alt="user-avatar"/>
+                                                <span>{x.buyer.name}</span></>
                                         }
                                     </Link>
                                 </div>)
@@ -122,14 +139,14 @@ function Messages() {
                         <>
                             <div className="chat-selected-header col-lg-12">
                                 {selected.isBuyer ?
-                                    <Link to={`/profile/${selected.chats.seller._id}`}>
-                                        <img src={selected.chats.seller.avatar} alt="user-avatar" />
-                                        <span>{selected.chats.seller.name}</span>
+                                    <Link to={`/profile/${selected.chat.seller.id}`}>
+                                        <img src={selected.chat.seller.avatar} alt="user-avatar"/>
+                                        <span>{selected.chat.seller.name}</span>
                                     </Link>
                                     :
-                                    <Link to={`/profile/${selected.chats.buyer._id}`}>
-                                        <img src={selected.chats.buyer.avatar} alt="user-avatar" />
-                                        <span>{selected.chats.buyer.name}</span>
+                                    <Link to={`/profile/${selected.chat.buyer.id}`}>
+                                        <img src={selected.chat.buyer.avatar} alt="user-avatar"/>
+                                        <span>{selected.chat.buyer.name}</span>
                                     </Link>
                                 }
                             </div>
@@ -141,8 +158,9 @@ function Messages() {
                                 </Alert>
                             }
                             <div className="chat-selected-body col-lg-12">
-                                {selected.chats.conversation.map((x, index) =>
-                                    <div className={selected.myId.toString() === x.senderId ? 'me' : "not-me"} key={index}>
+                                {selected.chat.conversation.map((x, index) =>
+                                    <div className={selected.myId === x.senderId ? 'me' : "not-me"}
+                                         key={index}>
                                         <span className="message">{x.message}</span>
                                     </div>
                                 )}
@@ -159,7 +177,7 @@ function Messages() {
                                             </Form.Control>
                                             <InputGroup>
                                                 <Button type="submit" variant="secondary">Sent</Button>
-                                            </InputGroup> 
+                                            </InputGroup>
                                         </InputGroup>
                                     </Form.Group>
                                 </Form>

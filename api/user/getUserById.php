@@ -16,7 +16,7 @@ $response = new Response();
 $id = $request->query->get('id');
 
 if (isset($id) && is_numeric($id)) {
-    $user = R::findOne('user', $id);
+    $user = R::findOne('user', ' id = ? ', [$id]);
 
     if ($user->id) {
         $response->setContent(json_encode($user->jsonSerialize()));

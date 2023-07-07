@@ -18,42 +18,24 @@ function CreateSell() {
         e.preventDefault();
         setProduct({...product, [e.target.name]: e.target.value});
         if (e.target.files) {
-            setProduct({...product, image: e.target.files[0]});
+            setProduct({...product, imageFile: e.target.files[0]});
         }
     }
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        let {title, price, description, city, category, image} = product;
-        let obj: Partial<Product> = {title, price, description, city, category};
         setLoading(true);
-        if (typeof image == 'object') {
-            getBase64(image)
-                .then((data) => {
-                    obj = {...obj, image: data as string};
-                    createProduct(obj as Product)
-                        .then(res => {
-                            if (!res.error) {
-                                navigate(`/categories/${category}/${res.id}/details`)
-                            } else {
-                                setLoading(false);
-                                setErrors(res.error);
-                                setAlertShow(true);
-                            }
-                        })
-                        .catch(err => console.error('edit product err: ', err))
-                })
-                .catch(err => console.log('base64 error: ', err));
-        }
-    }
-
-    function getBase64(file: File): Promise<string | ArrayBuffer | null> {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
+        createProduct(product)
+            .then(res => {
+                if (!res.error) {
+                    navigate(`/categories/${product.category}/${res.id}/details`)
+                } else {
+                    setLoading(false);
+                    setErrors(res.error);
+                    setAlertShow(true);
+                }
+            })
+            .catch(err => console.error('edit product err: ', err))
     }
 
     return (

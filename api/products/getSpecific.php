@@ -18,7 +18,11 @@ if (isset($id) && is_numeric($id)) {
 
     if ($product->id) {
         $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode($product->jsonSerialize()));
+        $response->setContent(json_encode([
+            'product' => $product->jsonSerialize(),
+            'seller' => $seller = R::findOne('user', ' id = ? ', [$product->seller_id])->jsonSerialize(),
+            'category' => $category = R::findOne('category', ' id = ? ', [$product->category_id])->jsonSerialize(),
+        ]));
         $response->setStatusCode(Response::HTTP_OK);
     } else {
         $response->headers->set('Content-Type', 'application/json');
